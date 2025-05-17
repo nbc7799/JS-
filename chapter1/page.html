@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coordinates</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .body,
+      html {
+        height: 100%;
+        background-color: black;
+      }
+      .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .box {
+        background-color: beige;
+        color: white;
+        width: 150px;
+        height: 150px;
+      }
+
+      .box:hover {
+        background-color: wheat;
+      }
+
+      .special-box {
+        background-color: pink;
+        margin-left: 50px;
+      }
+
+      .button-container {
+        width: 100%;
+        display: flex;
+        position: fixed;
+        justify-content: right;
+        align-items: end;
+      }
+
+      .button-container > button {
+        width: 140px;
+        height: 30px;
+        background-color: whitesmoke;
+      }
+
+      .button-container > button:hover {
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="button-container">
+      <button id="scroll-by">Scroll by 100px</button>
+      <button id="scroll-to">Scroll to 100px</button>
+      <button id="special-button">Scroll into special</button>
+    </div>
+    <div class="container">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box special-box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+    <script>
+      //1.querySelector는 특정노드를 선택하고싶을때 ,
+      //2.querySelectorAll은 NodeList를 반환,forEach 지원함
+      //3.getElementsByClassName은 유사배열인 HTMLCollection 만들어줌,forEach 지원안함
+      //4. 2,3번 둘다 map,filter지원안해서 배열로 변환해야 함
+      //5.getElementById는 단일 요소만 반환함.
+      const box = document.querySelectorAll(".box");
+      const btns = document.querySelectorAll("button");
+      const moveBy = document.getElementById("scroll-by");
+      const moveTo = document.getElementById("scroll-to");
+      const specialBtn = document.getElementById("special-button");
+      const specialBox = document.querySelector(".special-box");
+
+      //   box.forEach((box) => {
+      //     box.addEventListener("click", (e) => {
+      //       //   e.clientTop.toFixed();
+      //       const rect = box.getBoundingClientRect();
+      //       console.log(rect.bottom);
+      //       console.log(rect.right);
+      //       console.log(`client: ${e.clientX}, ${e.clientY}`);
+      //       console.log(`page ${e.pageX}, ${e.pageY}`);
+      //     });
+      //   });
+
+      //이벤트 위임방식이란 하나의 상위요소에 이벤트리스너 달아서 내부 여러 자식
+      //에 한번에 이벤트 처리하는 방식
+      document
+        .querySelector(".button-container")
+        .addEventListener("click", (e) => {
+          switch (e.target.id) {
+            //타겟의 id가 scroll-by면 window 객체 소환
+            case "scroll-by":
+              window.scrollBy({
+                top: 100,
+                behavior: "smooth",
+              });
+              //break는 코드실행멈추고 문을 종료하라
+              break;
+
+            case "scroll-to":
+              window.scrollTo({
+                top: 100,
+                behavior: "smooth",
+              });
+              break;
+
+            case "special-button":
+              specialBox.scrollIntoView({
+                behavior: "smooth",
+              });
+              break;
+
+            default:
+              break;
+          }
+        });
+    </script>
+  </body>
+</html>
