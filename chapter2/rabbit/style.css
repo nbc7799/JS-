@@ -1,0 +1,11 @@
+.carrots {
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.carrots img {
+  width: 200px;
+  margin: auto;
+  display: block;
+}
